@@ -1,0 +1,17 @@
+#card {
+    border: 1px solid black;
+    padding: 100px 10px;
+    text-align: center;
+}
+
+#counter {
+    display: inline-block;
+}
+
+#card-flipper {
+    text-align: center;
+}
+
+#card-flipper * {
+    margin: 10px;
+}
