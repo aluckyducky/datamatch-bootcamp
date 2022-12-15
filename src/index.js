@@ -3,15 +3,16 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom';
 
-import { Provider } from 'react-redux'
-import firebase from 'firebase/compat/app'
-import { createStore, combineReducers } from 'redux'
+import { Provider } from 'react-redux';
+import firebase from 'firebase/compat/app';
+import 'firebase/database';
+import { createStore, combineReducers } from 'redux';
 import {
   ReactReduxFirebaseProvider,
   firebaseReducer
-} from 'react-redux-firebase'
+} from 'react-redux-firebase';
 
 const firebaseConfig = {
     apiKey: "AIzaSyBlW6rzWo2JW7nhb8VeM6ylKXaOtbKn8wY",
