@@ -5,26 +5,40 @@ import { Link } from 'react-router-dom';
 class CardEditor extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {front: '', back: '' };
+        this.state = {
+            front: '', 
+            back: '',
+            cards: [
+                { front: 'front1', back: 'back1'},
+                { front: 'front2', back: 'back2'},
+            ], 
+        };
     }
 
     addCard = () => {
-        if(this.state.front.trim() != '' && this.state.back.trim() != '') {
-            this.props.addCard(this.state);
-            this.setState({ front: '', back: '' });
+        if(!this.state.front.trim() || !this.state.back.trim()) {
+            alert("Cannot add empty card");
+            return;
         }
+
+        const newCard = { front: this.state.front, back: this.state.back }
+        const cards = this.state.cards.slice().concat(newCard);
+
+        this.setState({ cards, front: '', back: '' });
     };
 
     deleteCard = index => {
-        if (this.props.cards.length > 1) {
-            this.props.deleteCard(index);
+        if (this.state.cards.length > 1) {
+            const cards = this.state.cards.slice();
+            cards.splice(index, 1);
+            this.setState({ cards });
         }
-    }
+    };
 
     handleChange = event => this.setState({ [event.target.name]: event.target.value });
 
     render() {
-        const cards = this.props.cards.map((card, index) => {
+        const cards = this.state.cards.map((card, index) => {
             return (
                 <tr key={index}>
                     <td>{card.front}</td>

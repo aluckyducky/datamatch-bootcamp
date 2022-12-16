@@ -9,74 +9,26 @@ import { Switch, Route } from 'react-router-dom';
 
 
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      cards: [
-        { front: 'front1', back: 'back1'},
-        { front: 'front2', back: 'back2'},
-      ],
-    };
-  }
+const App = () => {
+  return (
+    <Switch>
+      <Route exact path="/">
+        <Homepage/>
+      </Route>
 
-  addCard = card => {
-    const cards = this.state.cards.slice().concat(card);
-    this.setState({ cards });
-  };
+      <Route exact path="/editor">
+        <CardEditor />
+      </Route>
 
-  deleteCard = index => {
-    const cards = this.state.cards.slice();
-    cards.splice(index, 1);
-    this.setState({ cards });
-  };
+      <Route exact path="/viewer/:deckId">
+        <CardViewer />
+      </Route>
 
-  render() {
-    return (
-      <Switch>
-        <Route exact path="/">
-          <Homepage/>
-        </Route>
-
-        <Route exact path="/editor">
-          <CardEditor 
-              addCard={this.addCard} 
-              cards={this.state.cards} 
-              deleteCard={this.deleteCard}
-          />
-        </Route>
-
-        <Route exact path="/viewer/:deckId">
-          <CardViewer cards={this.state.cards}/>
-        </Route>
-
-        <Route>
-          <div>Page not found!</div>
-        </Route>
-      </Switch>
-
-      // <Routes>
-      //   <Route 
-      //     path="/"
-      //     element={<Homepage/>}
-      //   />
-      //   <Route 
-      //     path="/editor"
-      //     element={
-      //       <CardEditor 
-      //         addCard={this.addCard} 
-      //         cards={this.state.cards} 
-      //         deleteCard={this.deleteCard}
-      //       />
-      //     }
-      //   />
-      //   <Route 
-      //     path="/viewer/:deckId" 
-      //     element={<CardViewer cards={this.state.cards}/>}
-      //   />
-      // </Routes>
-    );
-  }
+      <Route>
+        <div>Page not found!</div>
+      </Route>
+    </Switch>
+  );
 }
 
 export default App;
