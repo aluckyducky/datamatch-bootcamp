@@ -1,8 +1,9 @@
 import React from "react";
 import './CardEditor.css';
 
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { firebaseConnect } from "react-redux-firebase";
+import { compose } from "redux";
 
 class CardEditor extends React.Component {
     constructor(props) {
@@ -41,9 +42,13 @@ class CardEditor extends React.Component {
     createDeck = () => {
         const deckId = this.props.firebase.push('/flashcards').key;
         const newDeck = { cards: this.state.cards, name: this.state.name };
-        this.props.firebase.update(`/flashcards/${deckId}`, newDeck);
+        const onComplete = () => {
+            this.props.history.push(`/viewer/${deckId}`);
+        };
 
-    }
+        this.props.firebase.update(`/flashcards/${deckId}`, newDeck, onComplete);
+
+    };
 
     render() {
         const cards = this.state.cards.map((card, index) => {
@@ -109,4 +114,7 @@ class CardEditor extends React.Component {
     }
 }
 
-export default firebaseConnect()(CardEditor);
+export default compose(
+    withRouter,
+    firebaseConnect(),
+)(CardEditor);
