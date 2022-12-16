@@ -1,6 +1,8 @@
 import React from "react";
 import './CardEditor.css';
+
 import { Link } from 'react-router-dom';
+import { firebaseConnect } from "react-redux-firebase";
 
 class CardEditor extends React.Component {
     constructor(props) {
@@ -35,6 +37,13 @@ class CardEditor extends React.Component {
     };
 
     handleChange = event => this.setState({ [event.target.name]: event.target.value });
+
+    createDeck = () => {
+        const deckId = this.props.firebase.push('/flashcards').key;
+        const newDeck = { cards: this.state.cards, name: this.state.name };
+        this.props.firebase.update(`/flashcards/${deckId}`, newDeck);
+
+    }
 
     render() {
         const cards = this.state.cards.map((card, index) => {
@@ -90,6 +99,7 @@ class CardEditor extends React.Component {
                 <div>
                     <button
                         disabled={!this.state.name.trim() || this.state.cards.length === 0}
+                        onClick = {this.createDeck}
                     >Create deck</button>
                 </div>
                 <br />
@@ -99,4 +109,4 @@ class CardEditor extends React.Component {
     }
 }
 
-export default CardEditor;
+export default firebaseConnect()(CardEditor);
