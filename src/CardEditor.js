@@ -12,6 +12,7 @@ class CardEditor extends React.Component {
                 { front: 'front1', back: 'back1'},
                 { front: 'front2', back: 'back2'},
             ], 
+            name: '',
         };
     }
 
@@ -28,11 +29,9 @@ class CardEditor extends React.Component {
     };
 
     deleteCard = index => {
-        if (this.state.cards.length > 1) {
-            const cards = this.state.cards.slice();
-            cards.splice(index, 1);
-            this.setState({ cards });
-        }
+        const cards = this.state.cards.slice();
+        cards.splice(index, 1);
+        this.setState({ cards });
     };
 
     handleChange = event => this.setState({ [event.target.name]: event.target.value });
@@ -53,6 +52,16 @@ class CardEditor extends React.Component {
         return (
             <div>
                 <h2>Card Editor</h2>
+                <div>
+                    Deck name: {" "}
+                    <input 
+                        name="name"
+                        onChange={this.handleChange} 
+                        placeholder="Name of deck" 
+                        value={this.state.name} 
+                    />
+                </div>
+                <br />
                 <table>
                     <thead>
                         <tr>
@@ -78,6 +87,12 @@ class CardEditor extends React.Component {
                 />
                 <button onClick={this.addCard} >Add card</button>
                 <hr/>
+                <div>
+                    <button
+                        disabled={!this.state.name.trim() || this.state.cards.length === 0}
+                    >Create deck</button>
+                </div>
+                <br />
                 <Link to="/viewer">Go to card viewer</Link>
             </div>
         );
