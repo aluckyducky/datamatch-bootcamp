@@ -69,6 +69,7 @@ class CardViewer extends React.Component {
 }
 
 const mapStateToProps = (state, props) => {
+    console.log(state.firebase.data)
     const deck = state.firebase.data[props.match.params.deckId];
     const name = deck && deck.name;
     const cards = deck && deck.cards;
@@ -84,9 +85,3 @@ export default compose(
     connect(mapStateToProps),
 )(CardViewer);
 
-// { path: '/flashcards/deck1', storeAs: 'deck1' }
-
-// export default firebaseConnect(() => [{ path: '/flashcards' }])(CardViewer);
-// export default firebaseConnect(['flashcards'])(CardViewer);
-
-// export default CardViewer;
