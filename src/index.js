@@ -7,7 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
 import firebase from 'firebase/compat/app';
-import 'firebase/database';
+import 'firebase/compat/database';
 import { createStore, combineReducers } from 'redux';
 import {
   ReactReduxFirebaseProvider,
@@ -22,7 +22,7 @@ const firebaseConfig = {
     storageBucket: "bootcamp-a13f8.appspot.com",
     messagingSenderId: "1063710554041",
     appId: "1:1063710554041:web:77b4d3197dee8784252868"
-};
+  };
 
 firebase.initializeApp(firebaseConfig);
 

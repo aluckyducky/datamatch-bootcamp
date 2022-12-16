@@ -3,8 +3,11 @@ import CardEditor from './CardEditor';
 import React from 'react';
 import CardViewer from './CardViewer';
 import Homepage from './Homepage';
+import { Switch, Route } from 'react-router-dom';
 
-import { Route, Routes } from 'react-router-dom';
+// import { Route, Routes } from 'react-router-dom';
+
+
 
 class App extends React.Component {
   constructor(props) {
@@ -30,26 +33,44 @@ class App extends React.Component {
 
   render() {
     return (
-      <Routes>
-        <Route 
-          path="/"
-          element={<Homepage/>}
-        />
-        <Route 
-          path="/editor"
-          element={
-            <CardEditor 
+      <Switch>
+        <Route exact path="/">
+          <Homepage/>
+        </Route>
+
+        <Route exact path="/editor">
+          <CardEditor 
               addCard={this.addCard} 
               cards={this.state.cards} 
               deleteCard={this.deleteCard}
-            />
-          }
-        />
-        <Route 
-          path="/viewer" 
-          element={<CardViewer cards={this.state.cards}/>}
-        />
-      </Routes>
+          />
+        </Route>
+
+        <Route exact path="/viewer/:deckId">
+          <CardViewer cards={this.state.cards}/>
+        </Route>
+      </Switch>
+
+      // <Routes>
+      //   <Route 
+      //     path="/"
+      //     element={<Homepage/>}
+      //   />
+      //   <Route 
+      //     path="/editor"
+      //     element={
+      //       <CardEditor 
+      //         addCard={this.addCard} 
+      //         cards={this.state.cards} 
+      //         deleteCard={this.deleteCard}
+      //       />
+      //     }
+      //   />
+      //   <Route 
+      //     path="/viewer/:deckId" 
+      //     element={<CardViewer cards={this.state.cards}/>}
+      //   />
+      // </Routes>
     );
   }
 }
